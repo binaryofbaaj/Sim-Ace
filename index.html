@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sim-Ace — Space Physics Sandbox</title>
+  <meta name="description" content="Real-time interactive space sandbox. Experiment with gravity, spawn celestial objects, and create chaotic or stable orbital systems." />
+  <meta property="og:title" content="Sim-Ace — Space Physics Sandbox" />
+  <meta property="og:description" content="Experiment with gravity, spawn stars, planets, and black holes in a real-time N-body simulation." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <!-- Three.js renders into this canvas -->
+  <canvas id="sim-canvas"></canvas>
+
+  <!-- UI Overlay -->
+  <div id="ui-overlay">
+    <!-- Top bar -->
+    <header id="top-bar">
+      <div class="logo">
+        <span class="logo-icon">◉</span>
+        <h1>SIM-ACE</h1>
+        <span class="logo-tagline">SPACE SANDBOX</span>
+      </div>
+      <div id="hud-stats">
+        <span class="stat-item">
+          <span class="stat-label">BODIES</span>
+          <span class="stat-value mono" id="stat-bodies">0</span>
+        </span>
+        <span class="stat-item">
+          <span class="stat-label">FPS</span>
+          <span class="stat-value mono" id="stat-fps">60</span>
+        </span>
+      </div>
+    </header>
+
+    <!-- Left panel — object spawning controls -->
+    <aside id="control-panel"></aside>
+
+    <!-- Bottom bar — time controls -->
+    <footer id="time-controls"></footer>
+
+    <!-- Right panel — HUD info -->
+    <aside id="hud-panel"></aside>
+
+    <!-- Alert toasts -->
+    <div id="alert-container"></div>
+
+    <!-- Mode selector -->
+    <div id="mode-selector"></div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

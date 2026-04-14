@@ -1,0 +1,199 @@
+/* ============================================================
+   Sim-Ace — Animations & VFX Styles (v7.0 Aesthetic)
+   ============================================================ */
+
+/* ---- Chaos slider ---- */
+
+.chaos-group {
+  position: relative;
+}
+
+.chaos-label {
+  font-weight: 600 !important;
+  color: var(--text-primary) !important;
+}
+
+.chaos-range {
+  position: relative;
+  z-index: 1;
+}
+
+.chaos-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  border-radius: var(--radius-full);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.chaos-high .chaos-range::-webkit-slider-thumb {
+  animation: chaosPulse 0.8s ease-in-out infinite;
+}
+
+.chaos-value {
+  transition: color 0.3s ease;
+}
+
+@keyframes chaosPulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(255, 23, 68, 0.4); transform: scale(1); }
+  50% { box-shadow: 0 0 22px rgba(255, 23, 68, 0.8); transform: scale(1.3); }
+}
+
+/* ---- Screen flash (edge glow on collision) ---- */
+
+.screen-flash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: var(--z-alert);
+  animation: screenFlash 0.45s ease-out forwards;
+}
+
+.screen-flash.explosion {
+  background: radial-gradient(ellipse at center, rgba(255, 80, 30, 0.12) 0%, transparent 70%);
+  box-shadow: inset 0 0 100px rgba(255, 80, 30, 0.25);
+}
+
+.screen-flash.merge {
+  background: radial-gradient(ellipse at center, rgba(0, 229, 255, 0.06) 0%, transparent 70%);
+  box-shadow: inset 0 0 80px rgba(0, 229, 255, 0.15);
+}
+
+@keyframes screenFlash {
+  0% { opacity: 1; }
+  30% { opacity: 0.8; }
+  100% { opacity: 0; }
+}
+
+/* ---- Body spawn animation ---- */
+
+.spawn-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid var(--accent-primary);
+  box-shadow: 0 0 12px var(--accent-primary-glow);
+  animation: spawnRipple 0.6s var(--ease-out) forwards;
+  pointer-events: none;
+}
+
+@keyframes spawnRipple {
+  from { width: 0; height: 0; opacity: 0.9; }
+  to { width: 80px; height: 80px; opacity: 0; margin: -40px; }
+}
+
+/* ---- Collision count badge ---- */
+
+.collision-badge {
+  position: fixed;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent-star);
+  text-shadow: 0 0 10px var(--accent-star-glow);
+  pointer-events: none;
+  z-index: var(--z-alert);
+  animation: collisionBadgePop 0.8s var(--ease-spring) forwards;
+}
+
+@keyframes collisionBadgePop {
+  0% { opacity: 1; transform: translateY(0) scale(0.5); }
+  40% { opacity: 1; transform: translateY(-18px) scale(1.2); }
+  100% { opacity: 0; transform: translateY(-35px) scale(0.8); }
+}
+
+/* ---- Panel entrance animations ---- */
+
+.control-panel {
+  animation: slideInLeft 0.5s var(--ease-out) both;
+}
+
+.hud-panel {
+  animation: slideInRight 0.5s var(--ease-out) 0.1s both;
+}
+
+/* ---- Button ripple effect ---- */
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--ripple-x, 50%) var(--ripple-y, 50%), 
+    var(--accent-primary-dim) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn:active::before {
+  opacity: 1;
+}
+
+/* ---- Glow text animation ---- */
+
+.glow-text {
+  animation: textGlow 2s ease-in-out infinite;
+}
+
+@keyframes textGlow {
+  0%, 100% { text-shadow: 0 0 4px currentColor; }
+  50% { text-shadow: 0 0 12px currentColor, 0 0 24px currentColor; }
+}
+
+/* ---- Breathing border for active panels ---- */
+
+@keyframes borderBreathe {
+  0%, 100% { border-color: var(--border-panel); }
+  50% { border-color: var(--border-hover); }
+}
+
+/* ---- Stability warning pulse ---- */
+
+@keyframes warningPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.stability-critical {
+  animation: warningPulse 1s ease-in-out infinite;
+}
+
+/* ---- Selection ring CSS for info display ---- */
+
+.selected-indicator {
+  position: absolute;
+  pointer-events: none;
+  border: 2px solid var(--accent-primary);
+  border-radius: 50%;
+  box-shadow: 0 0 12px var(--accent-primary-glow);
+  animation: selectionPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes selectionPulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.08); opacity: 1; }
+}
+
+/* ---- Particle fade for ambient effects ---- */
+
+@keyframes particleDrift {
+  0% { transform: translateY(0) scale(1); opacity: 0.6; }
+  100% { transform: translateY(-40px) scale(0.3); opacity: 0; }
+}
+
+/* ---- Loading shimmer for data gauges ---- */
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.data-gauge.loading .data-fill {
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-primary));
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}

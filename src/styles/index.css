@@ -1,0 +1,361 @@
+/* ============================================================
+   Sim-Ace — Design System & Global Tokens (v7.0 Aesthetic)
+   Premium deep-space command center UI
+   ============================================================ */
+
+:root {
+  /* ---- Deep Space Palette ---- */
+  --bg-void: #020208;
+  --bg-deep: #060610;
+  --bg-panel: rgba(6, 10, 22, 0.82);
+  --bg-panel-hover: rgba(10, 16, 32, 0.90);
+  --bg-input: rgba(0, 0, 0, 0.35);
+  --bg-button: rgba(0, 229, 255, 0.04);
+  --bg-button-hover: rgba(0, 229, 255, 0.10);
+  --bg-button-active: rgba(0, 229, 255, 0.18);
+
+  /* ---- Accent Spectrum ---- */
+  --accent-primary: #00E5FF;
+  --accent-primary-dim: rgba(0, 229, 255, 0.12);
+  --accent-primary-glow: rgba(0, 229, 255, 0.35);
+  --accent-secondary: #7C4DFF;
+  --accent-secondary-glow: rgba(124, 77, 255, 0.3);
+  --accent-warm: #FF6D00;
+  --accent-bio: #00E676;
+  --accent-bio-glow: rgba(0, 230, 118, 0.35);
+  --accent-warn: #FFD600;
+  --accent-danger: #FF1744;
+  --accent-danger-glow: rgba(255, 23, 68, 0.3);
+  --accent-star: #FFD740;
+  --accent-star-glow: rgba(255, 215, 64, 0.4);
+  --accent-planet: #4ECDC4;
+  --accent-info: #42A5F5;
+
+  /* ---- Text ---- */
+  --text-primary: #E8EAF6;
+  --text-secondary: #9FA8DA;
+  --text-muted: #5C6BC0;
+  --text-accent: var(--accent-primary);
+
+  /* ---- Borders ---- */
+  --border-subtle: rgba(0, 229, 255, 0.06);
+  --border-panel: rgba(0, 229, 255, 0.10);
+  --border-hover: rgba(0, 229, 255, 0.30);
+  --border-active: rgba(0, 229, 255, 0.55);
+
+  /* ---- Spacing ---- */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 24px;
+  --space-2xl: 32px;
+
+  /* ---- Radii ---- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* ---- Effects ---- */
+  --blur-panel: blur(20px);
+  --shadow-panel: 
+    0 8px 32px rgba(0, 0, 0, 0.65),
+    0 2px 8px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.02);
+  --shadow-glow: 0 0 24px var(--accent-primary-glow);
+  --shadow-button: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --scanline-opacity: 0.04;
+
+  /* ---- Typography ---- */
+  --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --font-display: 'Space Grotesk', var(--font-main);
+
+  /* ---- Transitions ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: 150ms var(--ease-out);
+  --transition-smooth: 300ms var(--ease-out);
+
+  /* ---- Z-Index ---- */
+  --z-canvas: 0;
+  --z-overlay: 5;
+  --z-panel: 10;
+  --z-alert: 50;
+  --z-scanline: 100;
+}
+
+/* ============================================================
+   Reset & Base
+   ============================================================ */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg-void);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 13px;
+  letter-spacing: 0.015em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- Scanline overlay for CRT depth ---- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.06) 2px,
+    rgba(0, 0, 0, 0.06) 4px
+  );
+  pointer-events: none;
+  z-index: var(--z-scanline);
+  opacity: var(--scanline-opacity);
+}
+
+/* ============================================================
+   Canvas
+   ============================================================ */
+
+#sim-canvas {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-canvas);
+}
+
+/* ============================================================
+   UI Overlay
+   ============================================================ */
+
+#ui-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  pointer-events: none;
+}
+
+/* ============================================================
+   Typography
+   ============================================================ */
+
+h1, h2, h3, .panel-title {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* ============================================================
+   Top Bar — Logo & Stats
+   ============================================================ */
+
+#top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-xl);
+  background: linear-gradient(180deg, rgba(6, 10, 22, 0.9) 0%, rgba(6, 10, 22, 0.4) 70%, transparent 100%);
+  pointer-events: auto;
+  z-index: var(--z-panel);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.logo-icon {
+  font-size: 20px;
+  color: var(--accent-primary);
+  text-shadow: 0 0 12px var(--accent-primary-glow);
+  animation: logoPulse 3s ease-in-out infinite;
+}
+
+.logo h1 {
+  font-size: 16px;
+  color: var(--text-primary);
+  letter-spacing: 0.3em;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logo-tagline {
+  font-size: 8px;
+  color: var(--text-muted);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+#hud-stats {
+  display: flex;
+  gap: var(--space-xl);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.stat-label {
+  font-size: 8px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--accent-primary);
+  text-shadow: 0 0 8px var(--accent-primary-glow);
+}
+
+/* ============================================================
+   Alert Container
+   ============================================================ */
+
+#alert-container {
+  position: fixed;
+  top: 72px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  z-index: var(--z-alert);
+  pointer-events: none;
+}
+
+/* ============================================================
+   Data Display Components
+   ============================================================ */
+
+.data-gauge {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+
+.data-gauge::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.03) 50%, transparent 100%);
+  animation: gaugeShimmer 3s ease-in-out infinite;
+}
+
+.data-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  box-shadow: 0 0 8px var(--accent-primary-glow);
+  transition: width 0.5s var(--ease-smooth);
+  border-radius: var(--radius-full);
+  position: relative;
+}
+
+.data-label {
+  font-size: 9px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.data-value {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--accent-primary);
+  text-shadow: 0 0 6px var(--accent-primary-glow);
+}
+
+/* ============================================================
+   Scrollbar
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-primary-dim);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary-glow);
+}
+
+/* ============================================================
+   Keyframes (global)
+   ============================================================ */
+
+@keyframes logoPulse {
+  0%, 100% { opacity: 1; text-shadow: 0 0 12px var(--accent-primary-glow); }
+  50% { opacity: 0.7; text-shadow: 0 0 20px var(--accent-primary-glow); }
+}
+
+@keyframes gaugeShimmer {
+  0%, 100% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInUp {
+  from { opacity: 0; transform: translateX(-50%) translateY(16px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
