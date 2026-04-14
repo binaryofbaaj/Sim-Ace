@@ -381,4 +381,4 @@ While the simulation is rendered in 3D (with sphere geometry for depth), the phy
 
 ## 📜 License
 
-MIT © 2026
+made by Gurman Singh (Baaj
