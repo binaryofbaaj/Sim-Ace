@@ -381,4 +381,4 @@ While the simulation is rendered in 3D (with sphere geometry for depth), the phy
 
 ## 📜 License
 
-made by Gurman Singh (Baaj
+Made by Gurman Singh (Baaj).
